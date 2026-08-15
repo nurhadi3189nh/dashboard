@@ -5,9 +5,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
-  FileText,
   FolderArchive,
+  Menu,
 } from "lucide-react";
+import { useState } from "react";
 
 export default function RootLayout({
   children,
@@ -16,20 +17,46 @@ export default function RootLayout({
 }>) {
   const pathname = usePathname();
 
+  const [sidebarOpen, setSidebarOpen] =
+    useState(false);
+
   return (
     <html lang="id">
       <body>
-        <div className="app-layout">
-
+        <div
+          className={`app-layout ${
+            sidebarOpen
+              ? "sidebar-open"
+              : "sidebar-collapsed"
+          }`}
+        >
           {/* SIDEBAR */}
           <aside className="sidebar">
+
+            {/* TOGGLE */}
+            <button
+              type="button"
+              className="sidebar-toggle"
+              onClick={() =>
+                setSidebarOpen(
+                  (prev) => !prev
+                )
+              }
+              aria-label={
+                sidebarOpen
+                  ? "Tutup sidebar"
+                  : "Buka sidebar"
+              }
+            >
+              <Menu size={19} />
+            </button>
 
             {/* LOGO */}
             <div
               className="sidebar-logo"
               style={{
                 height: "195px",
-                padding: "25px 20px 20px",
+                padding:"60px 20px 20px",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
@@ -66,7 +93,8 @@ export default function RootLayout({
                   style={{
                     fontSize: "21px",
                     fontWeight: 700,
-                    whiteSpace: "nowrap",
+                    whiteSpace:
+                      "nowrap",
                   }}
                 >
                   SKK MIGAS
@@ -77,7 +105,8 @@ export default function RootLayout({
                     marginTop: "0",
                     fontSize: "15px",
                     fontWeight: 500,
-                    letterSpacing: "0.3px",
+                    letterSpacing:
+                      "0.3px",
                   }}
                 >
                   SUMBAGSEL
@@ -86,7 +115,12 @@ export default function RootLayout({
             </div>
 
             {/* MENU */}
-            <div className="sidebar-menu">
+            <div
+              className="sidebar-menu"
+              style={{
+                paddingTop: "40px",
+              }}
+            >
               <div className="sidebar-section-title">
                 MAIN MENU
               </div>
@@ -97,21 +131,28 @@ export default function RootLayout({
                 className="sidebar-menu-item"
                 style={{
                   background:
-                    pathname === "/dashboard"
+                    pathname ===
+                    "/dashboard"
                       ? "rgba(255, 255, 255, 0.16)"
                       : "transparent",
 
                   borderLeft:
-                    pathname === "/dashboard"
+                    pathname ===
+                    "/dashboard"
                       ? "4px solid #ffffff"
                       : "4px solid transparent",
                 }}
               >
-                <LayoutDashboard size={19} />
-                <span>Dashboard</span>
+                <LayoutDashboard
+                  size={19}
+                />
+
+                <span>
+                  Dashboard
+                </span>
               </Link>
 
-              {/* DETAIL PENGOLAHAN */}
+              {/* DETAIL */}
               <Link
                 href="/detail"
                 className="sidebar-menu-item"
@@ -127,55 +168,40 @@ export default function RootLayout({
                       : "4px solid transparent",
                 }}
               >
-                <FolderArchive size={19} />
-                <span>Detail</span>
+                <FolderArchive
+                  size={19}
+                />
+
+                <span>
+                  Detail
+                </span>
               </Link>
             </div>
 
             {/* CREATED BY */}
             <div
-              style={{
-                marginTop: "auto",
-                padding: "18px 14px 20px",
-                textAlign: "center",
-                color: "rgba(255, 255, 255, 0.65)",
-                borderTop:
-                  "1px solid rgba(255, 255, 255, 0.10)",
-                flexShrink: 0,
-              }}
+              className="sidebar-created-by"
             >
               <div
-                style={{
-                  fontSize: "10px",
-                  fontWeight: 500,
-                  letterSpacing: "0.5px",
-                  marginBottom: "6px",
-                }}
+                className="created-by-label"
               >
                 Created by
               </div>
 
               <div
-                style={{
-                  fontSize: "11px",
-                  fontWeight: 600,
-                  lineHeight: "1.6",
-                  color: "rgba(255, 255, 255, 0.85)",
-                }}
+                className="created-by-name"
               >
                 Navassa Anastha
                 <br />
                 Selviramadani
               </div>
             </div>
-
           </aside>
 
           {/* CONTENT */}
           <main className="main-content">
             {children}
           </main>
-
         </div>
       </body>
     </html>

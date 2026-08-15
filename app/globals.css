@@ -1261,3 +1261,487 @@ body {
     padding: 14px;
   }
 }
+
+/* =====================================================
+   SIDEBAR COLLAPSIBLE
+===================================================== */
+
+.app-layout {
+  --sidebar-width: 245px;
+  --sidebar-collapsed-width: 70px;
+}
+
+.sidebar {
+  width: var(--sidebar-width);
+  transition:
+    width 0.25s ease,
+    transform 0.25s ease;
+}
+
+/* TOMBOL TOGGLE */
+.sidebar-toggle {
+  position: absolute;
+
+  top: 14px;
+  right: 10px;
+
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 0;
+  border-radius: 8px;
+
+  background: rgba(255, 255, 255, 0.10);
+  color: white;
+
+  cursor: pointer;
+
+  z-index: 20;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.sidebar-toggle:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.sidebar-toggle:active {
+  transform: scale(0.95);
+}
+
+/* =====================================================
+   SIDEBAR CLOSED
+===================================================== */
+
+.app-layout.sidebar-collapsed {
+  --sidebar-width: 70px;
+}
+
+.app-layout.sidebar-collapsed
+  .sidebar {
+  width: var(--sidebar-collapsed-width);
+}
+
+.app-layout.sidebar-collapsed
+  .main-content {
+  width: calc(
+    100% - var(--sidebar-collapsed-width)
+  );
+
+  margin-left: var(
+    --sidebar-collapsed-width
+  );
+}
+
+/* LOGO SAAT SIDEBAR TUTUP */
+
+.app-layout.sidebar-collapsed
+  .sidebar-logo {
+  height: 90px !important;
+
+  padding: 8px !important;
+
+  justify-content: center !important;
+
+  gap: 0 !important;
+}
+
+.app-layout.sidebar-collapsed
+  .sidebar-logo img {
+  width: 52px !important;
+  height: 52px !important;
+}
+
+.app-layout.sidebar-collapsed
+  .sidebar-logo-text {
+  display: none !important;
+}
+
+/* MENU SAAT SIDEBAR TUTUP */
+
+.app-layout.sidebar-collapsed
+  .sidebar-section-title {
+  display: none;
+}
+
+.app-layout.sidebar-collapsed
+  .sidebar-menu {
+  padding: 18px 8px 0;
+}
+
+.app-layout.sidebar-collapsed
+  .sidebar-menu-item {
+  justify-content: center;
+  gap: 0;
+  padding: 0;
+}
+
+.app-layout.sidebar-collapsed
+  .sidebar-menu-item span {
+  display: none;
+}
+
+/* CREATED BY SAAT SIDEBAR TUTUP */
+
+.app-layout.sidebar-collapsed
+  .sidebar-created-by {
+  display: none;
+}
+
+/* =====================================================
+   MAIN CONTENT SAAT SIDEBAR TERBUKA
+===================================================== */
+
+.app-layout.sidebar-open
+  .main-content {
+  width: calc(
+    100% - var(--sidebar-width)
+  );
+
+  margin-left: var(
+    --sidebar-width
+  );
+
+  transition:
+    width 0.25s ease,
+    margin-left 0.25s ease;
+}
+
+/* =====================================================
+   MAIN CONTENT SAAT SIDEBAR TERTUTUP
+===================================================== */
+
+.app-layout.sidebar-collapsed
+  .main-content {
+  transition:
+    width 0.25s ease,
+    margin-left 0.25s ease;
+}
+
+/* =====================================================
+   CREATED BY
+===================================================== */
+
+.sidebar-created-by {
+  margin-top: auto;
+
+  padding: 18px 14px 20px;
+
+  text-align: center;
+
+  color: rgba(
+    255,
+    255,
+    255,
+    0.65
+  );
+
+  border-top:
+    1px solid
+    rgba(
+      255,
+      255,
+      255,
+      0.10
+    );
+
+  flex-shrink: 0;
+}
+
+.created-by-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.created-by-name {
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.6;
+  color: rgba(
+    255,
+    255,
+    255,
+    0.85
+  );
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 700px) {
+  .app-layout {
+    --sidebar-width: 70px;
+    --sidebar-collapsed-width: 0px;
+  }
+
+  .sidebar {
+    width: 70px;
+    transition:
+      width 0.25s ease,
+      transform 0.25s ease;
+  }
+
+  .main-content {
+    width: calc(100% - 70px);
+    margin-left: 70px;
+    padding: 14px;
+  }
+
+  .app-layout.sidebar-open
+    .sidebar {
+    width: 70px;
+  }
+
+  .app-layout.sidebar-open
+    .main-content {
+    width: calc(100% - 70px);
+    margin-left: 70px;
+  }
+
+  .app-layout.sidebar-collapsed
+    .sidebar {
+    width: 0;
+    overflow: hidden;
+  }
+
+  .app-layout.sidebar-collapsed
+    .main-content {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .app-layout.sidebar-collapsed
+    .sidebar-toggle {
+    position: fixed;
+
+    left: 10px;
+    top: 10px;
+    right: auto;
+
+    background: #0d399c;
+
+    box-shadow:
+      0 3px 10px
+      rgba(0, 0, 0, 0.15);
+  }
+}
+
+/* =====================================================
+   MOBILE RESPONSIVE
+===================================================== */
+@media (max-width: 700px) {
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .app-layout {
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* =========================
+     SIDEBAR MOBILE
+     Sidebar menjadi overlay,
+     tidak mengambil lebar konten
+  ========================= */
+  .sidebar {
+    width: 0 !important;
+    overflow: hidden;
+    transition: width 0.25s ease;
+    z-index: 2000;
+  }
+
+  .app-layout.sidebar-open .sidebar {
+    width: 245px !important;
+    overflow: visible;
+    box-shadow:
+      4px 0 20px
+      rgba(0, 0, 0, 0.18);
+  }
+
+  .app-layout.sidebar-collapsed .sidebar {
+    width: 0 !important;
+    overflow: hidden;
+  }
+
+  /* =========================
+     MAIN CONTENT
+  ========================= */
+  .main-content,
+  .app-layout.sidebar-open .main-content,
+  .app-layout.sidebar-collapsed .main-content {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+
+    margin-left: 0 !important;
+
+    padding: 12px !important;
+
+    overflow-x: hidden;
+  }
+
+  /* =========================
+     DASHBOARD PAGE
+  ========================= */
+  .dashboard-page {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+
+    padding: 12px !important;
+  }
+
+  .dashboard-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+
+    margin: 0 !important;
+  }
+
+  /* =========================
+     HEADER DASHBOARD
+  ========================= */
+  .dashboard-header {
+    width: 100%;
+    max-width: 100%;
+
+    flex-direction: column;
+    gap: 14px;
+
+    padding-top: 8px;
+    margin-bottom: 16px;
+  }
+
+  .title-row {
+    width: 100%;
+    gap: 8px;
+  }
+
+  .dashboard-header h1 {
+    font-size: 22px;
+    line-height: 1.2;
+  }
+
+  .dashboard-header p {
+    margin-left: 0;
+    font-size: 11px;
+    line-height: 1.4;
+  }
+
+  .year-select {
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* =========================
+     SUMMARY CARD
+  ========================= */
+  .summary-grid {
+    width: 100%;
+    grid-template-columns: 1fr !important;
+    gap: 10px;
+  }
+
+  .summary-card {
+    width: 100%;
+    min-width: 0;
+    min-height: 92px;
+  }
+
+  /* =========================
+     CHART CARD
+  ========================= */
+  .chart-card {
+    width: 100%;
+    max-width: 100%;
+
+    padding: 12px !important;
+
+    overflow: hidden;
+  }
+
+  .chart-header {
+    width: 100%;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .chart-header h2 {
+    font-size: 17px;
+  }
+
+  .chart-header p {
+    font-size: 11px;
+  }
+
+  /* Chart boleh scroll horizontal,
+     tapi tidak membuat seluruh page melebar */
+  .chart-wrapper {
+    width: 100%;
+    max-width: 100%;
+
+    overflow-x: auto !important;
+    overflow-y: hidden;
+
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* =========================
+     LEGEND
+  ========================= */
+  .legend {
+    width: 100%;
+
+    flex-wrap: wrap;
+
+    gap: 10px 14px;
+
+    justify-content: center;
+
+    margin-top: 8px;
+  }
+
+  /* =========================
+     TABLE
+  ========================= */
+  .table-wrapper {
+    width: 100%;
+    max-width: 100%;
+
+    overflow-x: auto !important;
+    overflow-y: auto;
+
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .table-wrapper table {
+    min-width: 1050px;
+  }
+
+  /* =========================
+     FOOTER
+  ========================= */
+  .dashboard-footer {
+    width: 100%;
+
+    flex-direction: column;
+
+    gap: 6px;
+
+    padding: 12px 3px;
+  }
+}
